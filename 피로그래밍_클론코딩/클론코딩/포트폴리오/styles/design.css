@@ -1,0 +1,381 @@
+/* ==================== Header ==================== */
+.header{
+    background: #000; width: 100%;
+    position: sticky; top: 0; z-index: 100;
+    border-bottom: 1px solid #1a1a1a;
+}
+.header .header-inner{
+    width: 1400px; margin: 0 auto;
+    display: flex; flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+}
+    /* 3개로 나뉨 - logo, menu, smallerMenu */
+.header .header-inner .logo{ width: 50px;}
+.header .header-inner .logo a{ display: block;}
+.header .header-inner .logo a img{
+    width: 100%; display: block;
+    /* img src 비어있을 때 기본 로고 표시 */
+    min-height: 50px;
+    background: black;
+}
+
+
+.header .header-inner .menu{}
+.header .header-inner .menu .menu-list{
+    display: flex; flex-flow: row nowrap;
+    gap: 40px;
+}
+.header .header-inner .menu .menu-list li{}
+.header .header-inner .menu .menu-list li a{
+    color: #fff; font-size: 1.3rem; font-weight: 500;
+    transition: color 0.2s;
+}
+.header .header-inner .menu .menu-list li:hover{transform: translateY(-2px);}
+.header .header-inner .menu .menu-list li a:hover{ color: #00c853; transform: translateY(-2px);}
+.header .header-inner .menu .menu-list li:nth-child(3) a{ color: #00c853;}
+
+.header .header-inner .smallerMenu{
+    display: none;
+    width: 35px; height: 35px;
+    position: relative;
+}
+.header .header-inner .smallerMenu img{
+    width: 100%; display: block;
+    /* img src 비어있을 때 햄버거 아이콘 표시 */
+    min-height: 35px;
+    background:
+        linear-gradient(#fff, #fff) center 5px/100% 3px no-repeat,
+        linear-gradient(#fff, #fff) center 16px/100% 3px no-repeat,
+        linear-gradient(#fff, #fff) center 27px/100% 3px no-repeat;
+}
+
+
+/* ==================== Main ==================== */
+.main{
+    background: #000;
+    min-height: calc(100vh - 90px);
+    padding: 30px 0 80px;
+}
+.main .portfolio-inner{
+    width: 1400px; margin: 0 auto;
+    padding: 0 40px;
+}
+.main .portfolio-inner .portfolio-head{
+    display: flex; flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0 40px;
+    position: relative;
+}
+.main .portfolio-inner .portfolio-head #term-24{
+    color: #fff; font-size: 1.8rem; font-weight: 700;
+}
+.main .portfolio-inner .portfolio-head #term-23{
+    color: #fff; font-size: 1.2rem;
+    position: absolute; right: 0;
+    transition: color 0.2s;
+}
+.main .portfolio-inner .portfolio-head #term-23::after{ content: "  >";}
+.main .portfolio-inner .portfolio-head #term-23:hover{ color: #00c853; transform: translateY(-2px);}
+
+.main .portfolio-inner .card-flex{
+    display: flex; flex-flow: column nowrap;
+    gap: 25px;
+}
+.main .portfolio-inner .card-flex .card{
+    background: #1c1c1c;
+    border: 1px solid #2a2a2a;
+    border-radius: 15px;
+    padding: 25px 30px;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+    /* 박스 우측 상단 햄버거 아이콘 (가상요소로 구현) */
+.main .portfolio-inner .card-flex .card::after{
+    content: '';
+    position: absolute;
+    top: 25px; right: 30px;
+    width: 28px; height: 22px;
+    background:
+        linear-gradient(#bbb, #bbb) left top/100% 3px no-repeat,
+        linear-gradient(#bbb, #bbb) left center/100% 3px no-repeat,
+        linear-gradient(#bbb, #bbb) left bottom/100% 3px no-repeat;
+    transition: transform 0.3s;
+    transform-origin: center;
+}
+    /* 박스 hover 시 2px 위로 + 햄버거 찌그러짐 */
+.main .portfolio-inner .card-flex .card:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 200, 83, 0.15);
+    border-color: #444;
+}
+.main .portfolio-inner .card-flex .card:hover::after{
+    transform: scaleY(0.5);
+}
+
+.main .portfolio-inner .card-flex .card .card-link{
+    display: flex; flex-flow: row nowrap;
+    gap: 30px;
+    align-items: center;
+}
+.main .portfolio-inner .card-flex .card .card-link .card-img{
+    width: 190px; height: 190px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.main .portfolio-inner .card-flex .card .card-link .card-img img{
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform 0.4s;
+}
+    /* 박스 hover 시 이미지 확대 */
+.main .portfolio-inner .card-flex .card:hover .card-link .card-img img{
+    transform: scale(1.1);
+    transform: translateY(-2px);
+}
+
+.main .portfolio-inner .card-flex .card .card-link .card-body{
+    flex: 1;
+    padding-right: 60px;
+}
+.main .portfolio-inner .card-flex .card .card-link .card-body .card-title{
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 5px 0 15px;
+}
+.main .portfolio-inner .card-flex .card .card-link .card-body .card-desc{
+    color: #ccc;
+    font-size: 1rem;
+    line-height: 1.5;
+    padding-bottom: 20px;
+}
+.main .portfolio-inner .card-flex .card .card-link .card-body .card-members{
+    display: flex; flex-flow: row wrap;
+    gap: 10px;
+}
+.main .portfolio-inner .card-flex .card .card-link .card-body .card-members li{
+    background: #888;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+.main .portfolio-inner .card-flex .card .card-link .card-body .card-members .leader{
+    background: #5b9bd5;
+}
+
+
+/* ==================== Footer ==================== */
+.footer{
+    background: #2b2b2b;
+    padding: 50px 0 30px;
+}
+.footer .footer-inner{
+    width: 1400px; margin: 0 auto;
+    padding: 0 40px;
+    display: flex; flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    position: relative;
+}
+
+.footer .footer-inner .footer-top{
+    display: flex; flex-flow: column nowrap;
+    gap: 25px;
+    order: 1;
+}
+.footer .footer-inner .footer-top .footer-rule{
+    color: #fff;
+    font-size: 1rem;
+    transition: color 0.2s;
+}
+.footer .footer-inner .footer-top .footer-rule::after{ content: "  >";}
+.footer .footer-inner .footer-top .footer-rule:hover{ color: #00c853; transform: translateY(-2px);}
+
+.footer .footer-inner .footer-top .footer-sns{
+    display: flex; flex-flow: row nowrap;
+    gap: 12px;
+}
+.footer .footer-top .footer-sns li{}
+.footer .footer-inner .footer-top .footer-sns li a{
+    display: flex; flex-flow: row nowrap;
+    justify-content: center; align-items: center;
+    width: 38px; height: 38px;
+    background: #000;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+.footer .footer-inner .footer-top .footer-sns li a:hover{ transform: translateY(-2px);}
+.footer .footer-inner .footer-top .footer-sns li img{ width: 18px; height: 18px;}
+.footer .footer-inner .footer-top .footer-sns li #kakao{}
+.footer .footer-inner .footer-top .footer-sns li #github{}
+.footer .footer-inner .footer-top .footer-sns li #instagram{}
+
+.footer .footer-inner .footer-email{
+    order: 3;
+    width: 100%;
+    display: flex; flex-flow: row nowrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+.footer .footer-inner .footer-email::before{
+    content: 'M';
+    display: flex; justify-content: center; align-items: center;
+    width: 38px; height: 38px;
+    background: #000;
+    color: #fff;
+    border-radius: 50%;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.footer .footer-inner .footer-email a{
+    color: #fff;
+    font-size: 1rem;
+    transition: color 0.2s;
+}
+.footer .footer-inner .footer-email a:hover{ color: #00c853;transform: translateY(-2px);}
+
+.footer .footer-inner .footer-nav{
+    order: 2;
+}
+.footer .footer-inner .footer-nav ul{
+    display: flex; flex-flow: row nowrap;
+    align-items: center;
+    gap: 15px;
+}
+.footer .footer-inner .footer-nav ul li{
+    color: #fff;
+    font-size: 1rem;
+    display: flex; align-items: center;
+}
+.footer .footer-inner .footer-nav ul li:not(:last-child)::after{
+    content: '|';
+    margin-left: 15px;
+    color: #555;
+}
+.footer .footer-inner .footer-nav ul li a{
+    color: #fff;
+    transition: color 0.2s;
+}
+.footer .footer-inner .footer-nav ul li a:hover{ color: #00c853; transform: translateY(-2px);}
+
+.footer .footer-inner .footer-copy{
+    order: 4;
+    width: 100%;
+    color: #aaa;
+    text-align: center;
+    padding-top: 30px;
+    margin-top: 20px;
+    border-top: 1px solid #444;
+    font-size: 0.95rem;
+}
+
+
+/* ==================== 반응형 ==================== */
+/* 1400px 이하 - 컨테이너 가로 100% 전환 */
+@media (max-width: 1400px){
+    .header .header-inner,
+    .main .portfolio-inner,
+    .footer .footer-inner{
+        width: 100%;
+    }
+}
+
+/* 1024px 이하 - 카드 body padding 줄임 */
+@media (max-width: 1024px){
+    .main .portfolio-inner .card-flex .card .card-link .card-body{
+        padding-right: 50px;
+    }
+    .main .portfolio-inner .card-flex .card .card-link .card-img{
+        width: 160px; height: 160px;
+    }
+}
+
+/* 768px 이하 - 헤더 메뉴 햄버거로 전환 + 카드 세로 배치 */
+@media (max-width: 768px){
+    .header .header-inner{ padding: 18px 25px;}
+    .header .header-inner .menu{ display: none;}
+    .header .header-inner .smallerMenu{ display: block;}
+
+    .main .portfolio-inner{ padding: 0 25px;}
+    .main .portfolio-inner .portfolio-head{ padding: 20px 0 30px;}
+    .main .portfolio-inner .portfolio-head #24기{ font-size: 1.5rem;}
+    .main .portfolio-inner .portfolio-head #23기{ font-size: 1rem;}
+
+    .main .portfolio-inner .card-flex .card{ padding: 25px 20px;}
+    .main .portfolio-inner .card-flex .card .card-link{
+        flex-flow: column nowrap;
+        align-items: center;
+        gap: 20px;
+    }
+    .main .portfolio-inner .card-flex .card .card-link .card-img{
+        width: 80%; height: auto;
+        max-width: 360px;
+        aspect-ratio: 1 / 1;
+    }
+    .main .portfolio-inner .card-flex .card .card-link .card-body{
+        padding-right: 0;
+        width: 100%;
+        text-align: center;
+    }
+    .main .portfolio-inner .card-flex .card .card-link .card-body .card-members{
+        justify-content: center;
+    }
+
+    .footer .footer-inner{
+        padding: 0 25px;
+        flex-flow: column nowrap;
+        align-items: flex-start;
+    }
+    .footer .footer-inner .footer-nav{
+        order: 4;
+        width: 100%;
+    }
+    .footer .footer-inner .footer-nav ul{
+        flex-flow: row wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    .footer .footer-inner .footer-copy{ order: 5;}
+}
+
+/* 500px 이하 - 카드 멤버 줄바꿈 자연스럽게, 폰트/패딩 축소 */
+@media (max-width: 500px){
+    .header .header-inner{ padding: 15px 20px;}
+    .header .header-inner .logo{ width: 42px;}
+    .header .header-inner .smallerMenu{ width: 30px; height: 30px;}
+    .header .header-inner .smallerMenu img{ min-height: 30px;}
+
+    .main .portfolio-inner{ padding: 0 18px;}
+    .main .portfolio-inner .card-flex .card{ padding: 22px 18px;}
+    .main .portfolio-inner .card-flex .card::after{
+        top: 20px; right: 20px;
+        width: 22px; height: 18px;
+    }
+    .main .portfolio-inner .card-flex .card .card-link .card-img{ width: 90%;}
+    .main .portfolio-inner .card-flex .card .card-link .card-body .card-title{ font-size: 1.3rem;}
+    .main .portfolio-inner .card-flex .card .card-link .card-body .card-desc{ font-size: 0.95rem;}
+    .main .portfolio-inner .card-flex .card .card-link .card-body .card-members li{
+        padding: 7px 13px;
+        font-size: 0.9rem;
+    }
+}
+
+/* 350px 까지 대응 */
+@media (max-width: 380px){
+    .main .portfolio-inner .card-flex .card .card-link .card-body .card-members{
+        gap: 7px;
+    }
+    .main .portfolio-inner .card-flex .card .card-link .card-body .card-members li{
+        padding: 6px 11px;
+        font-size: 0.85rem;
+    }
+}
