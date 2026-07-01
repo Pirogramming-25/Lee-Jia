@@ -1,0 +1,13 @@
+<h1>{% if movie %}리뷰 수정{% else %}리뷰 작성{% endif %}</h1>
+<form method="POST">
+  {% csrf_token %}
+  제목: <input name="title" value="{{ movie.title|default:'' }}" required><br>
+  개봉년도: <input name="release_year" type="number" value="{{ movie.release_year|default:'' }}" required><br>
+  장르: <input name="genre" value="{{ movie.genre|default:'' }}" required><br>
+  별점: <input name="rating" type="number" step="0.1" value="{{ movie.rating|default:'' }}" required><br>
+  러닝타임: <input name="runtime" type="number" value="{{ movie.runtime|default:'' }}" required><br>
+  리뷰: <textarea name="review" required>{{ movie.review|default:'' }}</textarea><br>
+  감독: <input name="director" value="{{ movie.director|default:'' }}" required><br>
+  주연: <input name="actors" value="{{ movie.actors|default:'' }}" required><br>
+  <button type="submit">Save</button>
+</form>
