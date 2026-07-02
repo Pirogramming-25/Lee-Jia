@@ -1,0 +1,13 @@
+<h1>my <span style="color:#e91e63">Movie</span> reviews</h1>
+<a href="{% url 'movie-create' %}">Add a New review</a>
+
+{% for movie in movies %}
+  <div>
+    <a href="{% url 'movie-detail' movie.pk %}">{{ movie.title }}</a>
+    <p>개봉년도 {{ movie.release_year }}년</p>
+    <p>장르 {{ movie.genre }}</p>
+    <p>별점 {{ movie.rating }}</p>
+  </div>
+{% empty %}
+  <p>리뷰가 없습니다.</p>
+{% endfor %}
