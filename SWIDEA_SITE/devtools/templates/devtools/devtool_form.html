@@ -1,0 +1,9 @@
+{% extends 'accounts/base.html' %}
+{% block content %}
+<h1>DevTool {% if mode == 'update' %}Update{% else %}Register{% endif %}</h1>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-edit">SUBMIT</button>
+</form>
+{% endblock %}

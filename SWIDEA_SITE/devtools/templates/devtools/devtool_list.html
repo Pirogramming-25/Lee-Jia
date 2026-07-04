@@ -1,0 +1,16 @@
+{% extends 'accounts/base.html' %}
+{% block content %}
+<h1>DevTool List</h1>
+<p>개발툴 목록 페이지입니다.</p>
+<table class="devtool-table">
+  {% for tool in devtools %}
+  <tr>
+    <td><a href="{% url 'devtools:detail' tool.pk %}">{{ tool.name }}</a></td>
+    <td>{{ tool.kind }}</td>
+    <td class="muted">{{ tool.content|truncatechars:60 }}</td>
+  </tr>
+  {% empty %}
+  <tr><td>등록된 개발툴이 없습니다.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

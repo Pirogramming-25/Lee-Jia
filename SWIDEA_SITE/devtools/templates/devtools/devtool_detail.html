@@ -1,0 +1,23 @@
+{% extends 'accounts/base.html' %}
+{% block content %}
+<h1>DevTool Detail</h1>
+<div class="card">
+  <h2>{{ devtool.name }}</h2>
+  <p><strong>{{ devtool.kind }}</strong></p>
+  <p>{{ devtool.content }}</p>
+  <hr>
+  <h3>&gt; 만들 수 있는 SW 목록</h3>
+  <ul>
+    {% for idea in devtool.ideas.all %}
+      <li><a href="{% url 'ideas:detail' idea.pk %}">{{ idea.title }}</a></li>
+    {% empty %}
+      <li>아직 없습니다.</li>
+    {% endfor %}
+  </ul>
+</div>
+<div class="button-row">
+  <a href="{% url 'devtools:delete' devtool.pk %}" class="btn btn-delete">삭제</a>
+  <a href="{% url 'devtools:list' %}" class="btn btn-list">목록</a>
+  <a href="{% url 'devtools:update' devtool.pk %}" class="btn btn-edit">수정</a>
+</div>
+{% endblock %}

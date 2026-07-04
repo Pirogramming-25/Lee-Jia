@@ -1,0 +1,156 @@
+body {
+  background: #1a1a1a;
+  color: #eee;
+  font-family: sans-serif;
+  margin: 0;
+}
+
+nav {
+  background: #000;
+  padding: 15px 30px;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+nav a {
+  color: #eee;
+  text-decoration: none;
+}
+
+nav .brand {
+  font-weight: bold;
+  margin-right: auto;
+}
+
+main {
+  padding: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+a {
+  color: #6cf;
+}
+
+input, textarea, select {
+  padding: 6px;
+  margin: 4px 0;
+}
+
+.logout-form {
+  display: inline;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  margin: 4px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-delete { background: #e74c3c; color: white; }
+.btn-edit   { background: #3498db; color: white; }
+.btn-list   { background: #7f8c8d; color: white; }
+
+.devtool-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.devtool-table tr {
+  border-bottom: 1px solid #333;
+}
+
+.devtool-table td {
+  padding: 12px;
+}
+
+.devtool-table .muted {
+  color: #999;
+}
+
+.sort-wrapper {
+  text-align: right;
+}
+
+.idea-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.idea-card {
+  position: relative;
+}
+
+.star-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+.idea-thumb {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.idea-thumb-placeholder {
+  height: 150px;
+  background: #333;
+}
+
+.idea-title {
+  color: #eee;
+  text-decoration: none;
+}
+
+.devtool-label {
+  color: #aaa;
+}
+
+.interest-btn {
+  color: #eee;
+  text-decoration: none;
+}
+
+.idea-detail-wrapper {
+  display: flex;
+  gap: 30px;
+}
+
+.idea-detail-img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.button-row {
+  margin-top: 20px;
+}
+
+.star-inline {
+  text-decoration: none;
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination .active {
+  font-weight: bold;
+}
