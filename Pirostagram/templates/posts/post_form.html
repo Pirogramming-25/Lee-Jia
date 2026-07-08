@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-box">
+    <h2>{% if mode == 'update' %}edit post{% else %}create post{% endif %}</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn primary">save</button>
+        <a href="{% url 'posts:post_list' %}" class="link">cancel</a>
+    </form>
+</div>
+{% endblock %}

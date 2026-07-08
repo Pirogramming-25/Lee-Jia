@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="story-modal">
+    <h3>{{ story_user.username }}'s Story</h3>
+    <div class="story-viewer">
+        <button id="prev-btn" class="story-nav">‹</button>
+        <div class="story-images">
+            {% for img in story.images.all %}
+            <img src="{{ img.image.url }}" class="story-img"
+                 data-idx="{{ forloop.counter0 }}"
+                 {% if not forloop.first %}style="display:none"{% endif %}>
+            {% endfor %}
+        </div>
+        <button id="next-btn" class="story-nav">›</button>
+    </div>
+    <a href="{% url 'posts:post_list' %}" class="link">close</a>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/story_detail.js' %}"></script>
+{% endblock %}

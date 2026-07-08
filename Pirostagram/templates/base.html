@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Pirostagram</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="layout">
+    {% if user.is_authenticated %}
+    <aside class="sidebar">
+        <h1 class="logo">Pirostagram</h1>
+        <nav class="side-nav">
+            <a href="{% url 'posts:post_list' %}"><img src="{% static 'images/house.svg' %}" alt="home"> home</a>
+
+            <div class="side-search">
+                <p><img src="{% static 'images/search.svg' %}" alt="uSearch"> user search</p>
+                <form action="{% url 'users:search' %}" method="get">
+                    <input type="text" name="q" placeholder="username">
+                    <button type="submit">search</button>
+                </form>
+            </div>
+
+            <a href="{% url 'posts:post_create' %}"><img src="{% static 'images/square-plus.svg' %}" alt="pCreate"> create post</a>
+            <a href="{% url 'stories:story_create' %}"><img src="{% static 'images/square-plus.svg' %}" alt="aCreate"> add story</a>
+            <a href="{% url 'users:profile' user.username %}"><img src="{% static 'images/user-round.svg' %}" alt="profile"> profile</a>
+            <!-- 아래 로그아웃 부분 교체 -->
+            <form action="{% url 'users:logout' %}" method="post" class="logout-form">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn"><img src="{% static 'images/log-out.svg' %}" alt="logout"> logout</button>
+            </form>
+        </nav>
+    </aside>
+    {% endif %}
+
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% if user.is_authenticated %}
+    <aside class="right-panel">
+        {% block right_panel %}{% endblock %}
+    </aside>
+    {% endif %}
+</div>
+
+<script src="{% static 'js/common.js' %}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>
