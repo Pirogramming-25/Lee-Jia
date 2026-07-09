@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="feed">
+    <!-- 스토리 바 -->
+    <div class="story-bar">
+        <a href="{% url 'stories:story_create' %}" class="story-item">
+            <div class="story-circle placeholder">+</div>
+            <span>story +</span>
+        </a>
+        {% for story_user in story_users %}
+        <a href="{% url 'stories:story_detail' story_user.username %}" class="story-item">
+            <div class="story-circle-wrap">
+                {% if story_user.profile_image %}
+                <img src="{{ story_user.profile_image.url }}" class="story-circle">
+                {% else %}
+                <div class="story-circle placeholder"></div>
+                {% endif %}
+            </div>
+            <span>{{ story_user.username }}</span>
+        </a>
+        {% endfor %}
+    </div>
+
+    <!-- 게시글 목록 -->
+    {% for post in posts %}
+    <article class="post-card" data-post-id="{{ post.pk }}">
+        <header class="post-header">
+            {% if post.author.profile_image %}
+            <img src="{{ post.author.profile_image.url }}" class="avatar">
+            {% else %}
+            <div class="avatar placeholder"></div>
+            {% endif %}
+            <a href="{% url 'users:profile' post.author.username %}" class="post-author">
+                {{ post.author.username }}
+            </a>
+            {% if post.author == user %}
+            <div class="post-menu">
+                <a href="{% url 'posts:post_update' post.pk %}">edit</a>
+                <button class="delete-btn" data-post-id="{{ post.pk }}">delete</button>
+            </div>
+            {% endif %}
+        </header>
+
+        <img src="{{ post.image.url }}" class="post-image">
+
+        <div class="post-actions">
+            <button class="like-btn" data-post-id="{{ post.pk }}">
+                <span class="heart">
+                    <svg class="heart-icon {% if user in post.likes.all %}active{% endif %}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </span>
+                <span class="like-count">{{ post.likes.count }}</span>
+            </button>
+            <span class="comment-icon"><img src="{% static 'images/message-circle.svg' %}" alt="comment"> <span class="comment-count">{{ post.comments.count }}</span></span>
+        </div>
+
+        <p class="post-caption"><b>{{ post.author.username }}</b> {{ post.caption }}</p>
+
+        <div class="comments" data-post-id="{{ post.pk }}">
+            <div class="comment-list">
+                {% for comment in post.comments.all %}
+                <div class="comment" data-comment-id="{{ comment.pk }}">
+                    <b>{{ comment.author.username }}</b>
+                    <span class="comment-content">{{ comment.content }}</span>
+                    {% if comment.author == user %}
+                    <button class="comment-edit-btn">edit</button>
+                    <button class="comment-delete-btn">delete</button>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            <form class="comment-form">
+                <input type="text" class="comment-input" placeholder="댓글 달기...">
+                <button type="submit">post</button>
+            </form>
+        </div>
+    </article>
+    {% empty %}
+    <p class="empty">No posts from followed users..</p>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block right_panel %}
+<div class="me-card">
+    {% if user.profile_image %}
+    <img src="{{ user.profile_image.url }}" class="avatar">
+    {% else %}
+    <div class="avatar placeholder"></div>
+    {% endif %}
+    <span class="me-name">{{ user.username }}</span>
+</div>
+
+<h3 class="section-title">Suggested Accounts</h3>
+<div class="suggested-list">
+    {% for u in suggested %}
+    <div class="suggested-item">
+        <a href="{% url 'users:profile' u.username %}" class="suggested-user">
+            {% if u.profile_image %}
+            <img src="{{ u.profile_image.url }}" class="avatar-sm">
+            {% else %}
+            <div class="avatar-sm placeholder"></div>
+            {% endif %}
+            <span>{{ u.username }}</span>
+        </a>
+        
+        <button class="suggest-follow-btn btn small" data-username="{{ u.username }}">
+            {% if u in request.user.following.all %}
+                <img src="{% static 'images/user-round-minus.svg' %}" alt="unfollow" class="follow-icon">
+            {% else %}
+                <img src="{% static 'images/user-round-plus.svg' %}" alt="follow" class="follow-icon">
+            {% endif %}
+        </button>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/post_list.js' %}"></script>
+{% endblock %}

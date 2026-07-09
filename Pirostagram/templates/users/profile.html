@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="profile-page">
+    <div class="profile-header">
+        <div class="profile-avatar-wrap">
+            {% if profile_user.profile_image %}
+            <img src="{{ profile_user.profile_image.url }}" class="profile-avatar">
+            {% else %}
+            <div class="profile-avatar placeholder"></div>
+            {% endif %}
+        </div>
+
+        <div class="profile-info">
+            <div class="profile-top">
+                <h2 class="profile-name">{{ profile_user.username }}</h2>
+                {% if profile_user == user %}
+                    <a href="{% url 'users:profile_edit' %}" class="btn">edit profile</a>
+                {% else %}
+                    <button class="btn primary follow-btn" data-username="{{ profile_user.username }}">
+                        <span class="follow-status-box">
+                            {% if is_following %}
+                                <img src="{% static 'images/user-round-minus.svg' %}" alt="unfollow" class="follow-icon">
+                            {% else %}
+                                <img src="{% static 'images/user-round-plus.svg' %}" alt="follow" class="follow-icon">
+                            {% endif %}
+                        </span>
+                    </button>
+                {% endif %}
+            </div>
+
+            <div class="profile-stats">
+                <span>post <b>{{ posts.count }}</b></span>
+                <span>follow <b>{{ profile_user.following.count }}</b></span>
+                <span>follower <b><span id="follower-count">{{ profile_user.followers.count }}</span></b></span>
+            </div>
+            <p class="profile-intro">
+                {{ profile_user.introduction|default:"소개글이 없습니다." }}
+            </p>
+        </div>
+    </div>
+
+    <div class="post-grid">
+        {% for post in posts %}
+        <img src="{{ post.image.url }}" class="grid-img">
+        {% empty %}
+        <p class="empty">No posts available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/profile.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-box">
+    <h2>Post Story</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="images" multiple accept="image/*" required>
+        <p class="hint">Select multiple images</p>
+        <button type="submit" class="btn primary">Upload</button>
+        <a href="{% url 'posts:post_list' %}" class="link">Cancel</a>
+    </form>
+</div>
+{% endblock %}
