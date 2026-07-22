@@ -1,0 +1,58 @@
+{% extends "my_gpt/base.html" %}
+{% load static %}
+{% block title %}감정 분석 · Django GPT{% endblock %}
+
+{% block content %}
+<section class="card">
+  <h1 class="title">😊 감정 분석</h1>
+  <dl class="meta">
+    <div><dt>사용 모델</dt><dd>{{ model_id }}</dd></div>
+    <div><dt>입력 언어</dt><dd>영어</dd></div>
+    <div><dt>입력 길이</dt><dd>1자 ~ 1,000자</dd></div>
+  </dl>
+
+  <label for="input-text" class="label">문장 입력</label>
+  <textarea id="input-text" class="textarea" rows="4"
+            maxlength="1000"
+            placeholder="Enter an English sentence..."></textarea>
+
+  <div class="actions">
+    <button id="run-btn" type="button" class="primary-btn">감정 분석 실행</button>
+    <span id="loading" class="loading" hidden>처리 중...</span>
+  </div>
+
+  <div id="error" class="error" role="alert"></div>
+  <div id="result" class="result"></div>
+</section>
+
+<section class="card">
+  <h2 class="subtitle">최근 기록</h2>
+  {% if user.is_authenticated %}
+    <ul id="history-list" class="history">
+      {% for h in histories %}
+        <li>
+          <div class="h-label">{{ h.output_text }}</div>
+          <div class="h-text">{{ h.input_text|truncatechars:80 }}</div>
+          <div class="h-time">{{ h.created_at|date:"Y-m-d H:i" }}</div>
+        </li>
+      {% empty %}
+        <li class="h-empty">아직 실행 기록이 없습니다.</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="notice">비로그인 상태에서는 현재 브라우저 세션 동안만 기록이 유지되며, 새로고침하면 사라집니다.</p>
+    <ul id="history-list" class="history">
+      <li class="h-empty">아직 실행 기록이 없습니다.</li>
+    </ul>
+  {% endif %}
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  window.IS_AUTHENTICATED = JSON.parse(
+    document.getElementById('user-auth-data').textContent
+  );
+</script>
+<script src="{% static 'my_gpt/js/sentiment.js' %}"></script>
+{% endblock %}

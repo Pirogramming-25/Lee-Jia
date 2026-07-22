@@ -1,0 +1,46 @@
+{% extends "my_gpt/base.html" %}
+{% load static %}
+{% block title %}문서 요약 · Django GPT{% endblock %}
+
+{% block content %}
+<section class="card">
+  <h1 class="title">📄 문서 요약</h1>
+  <dl class="meta">
+    <div><dt>사용 모델</dt><dd>{{ model_id }}</dd></div>
+    <div><dt>입력 언어</dt><dd>영어</dd></div>
+    <div><dt>입력 길이</dt><dd>100자 ~ 5,000자</dd></div>
+  </dl>
+
+  <label for="input-text" class="label">문서 입력</label>
+  <textarea id="input-text" class="textarea" rows="10"
+            maxlength="5000"
+            placeholder="Paste an English document to summarize..."></textarea>
+
+  <div class="actions">
+    <button id="run-btn" type="button" class="primary-btn">요약 실행</button>
+    <span id="loading" class="loading" hidden>처리 중...</span>
+  </div>
+
+  <div id="error" class="error" role="alert"></div>
+  <div id="result" class="result"></div>
+</section>
+
+<section class="card">
+  <h2 class="subtitle">최근 기록</h2>
+  <ul id="history-list" class="history">
+    {% for h in histories %}
+      <li>
+        <div class="h-label">요약 결과</div>
+        <div class="h-text">{{ h.output_text|truncatechars:120 }}</div>
+        <div class="h-time">{{ h.created_at|date:"Y-m-d H:i" }}</div>
+      </li>
+    {% empty %}
+      <li class="h-empty">아직 실행 기록이 없습니다.</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'my_gpt/js/summarize.js' %}"></script>
+{% endblock %}
