@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Django GPT{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'my_gpt/css/style.css' %}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Django GPT</div>
+    <div class="auth">
+      {% if user.is_authenticated %}
+        <span class="user">{{ user.username }}</span>
+        <form method="post" action="{% url 'logout' %}" class="logout-form">
+          {% csrf_token %}
+          <button type="submit" class="link-btn">로그아웃</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}" class="link-btn">로그인</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <nav class="tabbar">
+    <a class="nav-link {% if request.resolver_match.url_name == 'sentiment' %}active{% endif %}"
+       href="{% url 'my_gpt:sentiment' %}">감정 분석</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'summarize' %}active{% endif %}"
+       href="{% url 'my_gpt:summarize' %}">문서 요약</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'moderate' %}active{% endif %}"
+       href="{% url 'my_gpt:moderate' %}">유해 표현 분석</a>
+  </nav>
+
+  <main class="page">
+    {% block content %}{% endblock %}
+  </main>
+
+  <script src="{% static 'my_gpt/js/common.js' %}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>
